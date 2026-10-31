@@ -1,0 +1,46 @@
+PROPNET DEAL LEDGER — CLOUD LOGIN + TEAM ACCOUNTS
+
+IMPORTANT
+This package includes the login screen and Firebase cloud-sync integration. It is not live until you configure a Firebase project and host the files on an HTTPS website. No user passwords are embedded in the app.
+
+WHAT YOU NEED
+- A Google account with access to Firebase Console
+- An HTTPS website/hosting account (you can use your Propnet domain hosting)
+- One initial admin account, then separate employee accounts
+
+STEP 1 — CREATE FIREBASE PROJECT
+1. Open https://console.firebase.google.com/ and create a project, e.g. propnet-deal-ledger.
+2. Add a Web app in Project settings. Copy the web app config.
+3. Open Authentication > Sign-in method and enable Email/Password.
+4. Open Firestore Database and create a database.
+
+STEP 2 — CONFIGURE THE APP
+1. Open firebase-config.js. Replace all PASTE_* placeholders with the values from Firebase Project settings > Your apps > SDK setup and configuration.
+2. Keep the quotes and commas intact. Do not share any user's password.
+
+STEP 3 — DEPLOY SECURITY RULES
+1. In Firestore > Rules, paste the contents of firestore.rules and publish.
+2. These rules allow signed-in users with role admin/team to access the Propnet company records; only admins can delete records. Never use open rules such as allow read, write: if true.
+
+STEP 4 — CREATE FIRST ADMIN LOGIN
+1. In Firebase Authentication > Users, click Add user and create your work email + a strong password.
+2. Copy that user's UID.
+3. In Firestore Data, create a top-level collection named users. Create a document whose document ID is exactly that UID. Add field role with string value admin.
+4. Sign in through the app. If your account was created but role not assigned, the app will show the UID to use.
+
+STEP 5 — ADD EMPLOYEES
+1. In Authentication > Users, add each employee's work email and temporary password. Share passwords privately and ask employees to change them after first sign-in (or use password reset).
+2. For each employee, create users/{their UID} in Firestore with field role = team.
+3. Admins use role=admin. Treat role assignments as sensitive: only trusted administrators should access Firebase Console.
+
+STEP 6 — HOST / INSTALL
+1. Upload all files in this folder (including cloud-auth.js, firebase-config.js, firestore.rules, manifest, icons, and index.html) to an HTTPS website.
+2. Open the HTTPS address in Chrome on Android and choose Install app / Add to Home screen.
+3. Sign in with the assigned email and password. The same cloud records will be available to authorized users.
+
+DATA / SECURITY NOTES
+- The app syncs deal and payment records to Firestore. Keep regular JSON/CSV backups.
+- Employees can read/create/update records; only admins can delete records according to the included rules. All authorized users can see the shared Propnet company ledger.
+- This is a starter cloud integration, not an independently audited accounting system. Review privacy, retention, backups, and access policies before storing sensitive client information.
+- If your local browser already has deals, the first login merges those records with cloud records. Verify data before using it for live business accounting.
+- Firestore batches have size limits; for very large imports, split imports into smaller batches.
