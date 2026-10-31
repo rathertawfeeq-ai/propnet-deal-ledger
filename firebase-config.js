@@ -1,10 +1,8 @@
-// Replace every placeholder with your Firebase project's web-app configuration.
-// Firebase web config is not a password; protect data with the included Firestore rules.
-export const firebaseConfig = {
-  apiKey: "PASTE_FIREBASE_API_KEY",
-  authDomain: "PASTE_PROJECT_ID.firebaseapp.com",
-  projectId: "PASTE_PROJECT_ID",
-  storageBucket: "PASTE_PROJECT_ID.firebasestorage.app",
-  messagingSenderId: "PASTE_MESSAGING_SENDER_ID",
-  appId: "PASTE_APP_ID"
+const firebaseConfig = {
+  apiKey: "AIzaSyDDsvpdXebahPySdKEG0u0oXTvM8GXNEWc",
+  authDomain: "propnet-deal-ledger.firebaseapp.com",
+  projectId: "propnet-deal-ledger",
+  storageBucket: "propnet-deal-ledger.firebasestorage.app",
+  messagingSenderId: "59768353940",
+  appId: "1:59768353940:web:10745c145d38fa115af081"
 };
